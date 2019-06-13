@@ -89,14 +89,14 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="c" value="8841" />
-          <entry key="h" value="7153" />
+          <entry key="h" value="7161" />
           <entry key="txt" value="105" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Doxygen file" value="2" />
-          <entry key="ObjectiveC" value="15992" />
+          <entry key="ObjectiveC" value="16000" />
           <entry key="PLAIN_TEXT" value="105" />
         </counts>
       </usages-collector>
@@ -104,10 +104,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3200">
+            <state relative-caret-position="173">
               <caret line="309" selection-start-line="309" selection-end-line="309" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -137,11 +137,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Sprite.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="87" column="34" selection-start-line="87" selection-start-column="34" selection-end-line="87" selection-end-column="34" />
+            <state relative-caret-position="-1132">
+              <caret line="90" column="50" selection-start-line="90" selection-start-column="50" selection-end-line="90" selection-end-column="50" />
               <folding>
                 <element signature="e#94#122#0" expanded="true" />
                 <element signature="e#1810#1891#0" />
@@ -208,6 +208,9 @@
       <replace>player.climbing</replace>
     </replaceStrings>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -234,6 +237,7 @@
     <option name="width" value="663" />
     <option name="height" value="741" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -322,12 +326,12 @@
       <workItem from="1559704023252" duration="1461000" />
       <workItem from="1559775357985" duration="1000" />
       <workItem from="1559784413754" duration="1464000" />
-      <workItem from="1560374876668" duration="12937000" />
+      <workItem from="1560374876668" duration="13207000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="84024000" />
+    <option name="totallyTimeSpent" value="84294000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -353,9 +357,9 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3284553" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Messages" order="8" weight="0.3284553" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49924242" visible="true" weight="0.4390244" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49924242" visible="true" weight="0.44045678" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5007576" side_tool="true" weight="0.3284553" />
-      <window_info anchor="bottom" id="Version Control" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="11" />
       <window_info anchor="bottom" id="CMake" order="12" weight="0.3284553" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -440,16 +444,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3200">
-          <caret line="309" selection-start-line="309" selection-end-line="309" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Settings.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="413">
@@ -459,8 +453,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Sprite.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="87" column="34" selection-start-line="87" selection-start-column="34" selection-end-line="87" selection-end-column="34" />
+        <state relative-caret-position="-1132">
+          <caret line="90" column="50" selection-start-line="90" selection-start-column="50" selection-end-line="90" selection-end-column="50" />
           <folding>
             <element signature="e#94#122#0" expanded="true" />
             <element signature="e#1810#1891#0" />
@@ -488,6 +482,16 @@
             <element signature="e#8492#8566#0" />
             <element signature="e#8721#8793#0" />
             <element signature="e#9105#9413#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="309" selection-start-line="309" selection-end-line="309" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
