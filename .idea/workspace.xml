@@ -11,7 +11,13 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb78a7c1-3c06-4257-9f99-73ae0ba68507" name="Default Changelist" comment="" />
+    <list default="true" id="bb78a7c1-3c06-4257-9f99-73ae0ba68507" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Main" beforeDir="false" afterPath="$PROJECT_DIR$/Main" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Settings.h" beforeDir="false" afterPath="$PROJECT_DIR$/Settings.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sprite.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sprite.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sprites/misc-2.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -88,15 +94,15 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="c" value="8841" />
-          <entry key="h" value="7161" />
+          <entry key="c" value="9072" />
+          <entry key="h" value="7994" />
           <entry key="txt" value="105" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Doxygen file" value="2" />
-          <entry key="ObjectiveC" value="16000" />
+          <entry key="ObjectiveC" value="17064" />
           <entry key="PLAIN_TEXT" value="105" />
         </counts>
       </usages-collector>
@@ -104,11 +110,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="309" selection-start-line="309" selection-end-line="309" />
+            <state relative-caret-position="246">
+              <caret line="214" column="26" selection-start-line="214" selection-start-column="26" selection-end-line="214" selection-end-column="26" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -119,8 +125,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Settings.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="413">
-              <caret line="32" column="56" selection-start-line="32" selection-start-column="56" selection-end-line="32" selection-end-column="56" />
+            <state relative-caret-position="21">
+              <caret line="31" column="37" selection-start-line="31" selection-start-column="37" selection-end-line="31" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -128,7 +134,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Sprite.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="945">
+            <state relative-caret-position="135">
               <caret line="63" selection-start-line="63" selection-end-line="63" />
               <folding>
                 <element signature="e#42#70#0" expanded="true" />
@@ -137,19 +143,21 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Sprite.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1132">
-              <caret line="90" column="50" selection-start-line="90" selection-start-column="50" selection-end-line="90" selection-end-column="50" />
+            <state relative-caret-position="231">
+              <caret line="94" column="25" selection-start-line="94" selection-start-column="25" selection-end-line="94" selection-end-column="25" />
               <folding>
                 <element signature="e#94#122#0" expanded="true" />
+                <element signature="e#1720#1778#0" />
                 <element signature="e#1810#1891#0" />
                 <element signature="e#1841#2089#0" />
+                <element signature="e#2091#2527#0" />
+                <element signature="e#595#716#0" />
                 <element signature="e#718#815#0" />
                 <element signature="e#817#912#0" />
                 <element signature="e#914#2495#0" />
-                <element signature="e#2516#3002#0" />
                 <element signature="e#2936#3135#0" />
                 <element signature="e#3137#3500#0" />
                 <element signature="e#3501#3864#0" />
@@ -166,7 +174,6 @@
                 <element signature="e#7455#7798#0" />
                 <element signature="e#7800#8145#0" />
                 <element signature="e#8147#8490#0" />
-                <element signature="e#8492#8566#0" />
                 <element signature="e#8721#8793#0" />
                 <element signature="e#9105#9413#0" />
               </folding>
@@ -217,9 +224,9 @@
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/LinkedList.h" />
         <option value="$PROJECT_DIR$/LinkedList.c" />
-        <option value="$PROJECT_DIR$/Settings.h" />
         <option value="$PROJECT_DIR$/Notas.txt" />
         <option value="$PROJECT_DIR$/Sprite.c" />
+        <option value="$PROJECT_DIR$/Settings.h" />
         <option value="$PROJECT_DIR$/main.c" />
         <option value="$PROJECT_DIR$/Sprite.h" />
       </list>
@@ -326,12 +333,12 @@
       <workItem from="1559704023252" duration="1461000" />
       <workItem from="1559775357985" duration="1000" />
       <workItem from="1559784413754" duration="1464000" />
-      <workItem from="1560374876668" duration="13207000" />
+      <workItem from="1560374876668" duration="17992000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="84294000" />
+    <option name="totallyTimeSpent" value="89079000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -424,9 +431,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Sprites/marioSheet.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/Notas.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -434,9 +438,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Sprites/marioSheet.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="214" column="26" selection-start-line="214" selection-start-column="26" selection-end-line="214" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Settings.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="31" column="37" selection-start-line="31" selection-start-column="37" selection-end-line="31" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Sprite.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="945">
+        <state relative-caret-position="135">
           <caret line="63" selection-start-line="63" selection-end-line="63" />
           <folding>
             <element signature="e#42#70#0" expanded="true" />
@@ -444,25 +468,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Settings.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="32" column="56" selection-start-line="32" selection-start-column="56" selection-end-line="32" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Sprite.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1132">
-          <caret line="90" column="50" selection-start-line="90" selection-start-column="50" selection-end-line="90" selection-end-column="50" />
+        <state relative-caret-position="231">
+          <caret line="94" column="25" selection-start-line="94" selection-start-column="25" selection-end-line="94" selection-end-column="25" />
           <folding>
             <element signature="e#94#122#0" expanded="true" />
+            <element signature="e#1720#1778#0" />
             <element signature="e#1810#1891#0" />
             <element signature="e#1841#2089#0" />
+            <element signature="e#2091#2527#0" />
+            <element signature="e#595#716#0" />
             <element signature="e#718#815#0" />
             <element signature="e#817#912#0" />
             <element signature="e#914#2495#0" />
-            <element signature="e#2516#3002#0" />
             <element signature="e#2936#3135#0" />
             <element signature="e#3137#3500#0" />
             <element signature="e#3501#3864#0" />
@@ -479,19 +498,8 @@
             <element signature="e#7455#7798#0" />
             <element signature="e#7800#8145#0" />
             <element signature="e#8147#8490#0" />
-            <element signature="e#8492#8566#0" />
             <element signature="e#8721#8793#0" />
             <element signature="e#9105#9413#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="309" selection-start-line="309" selection-end-line="309" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -11,7 +11,15 @@
 
 enum KEYS {KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_SPACE};
 
+void start();
+
 int main() {
+    start();
+
+    return 0;
+}
+
+void start(){
     printf("Initializing!\n");
 
 
@@ -80,11 +88,12 @@ int main() {
     genThirdLine(&spriteList,spriteSize);
     genFourthLine(&spriteList,spriteSize);
     genFifthLine(&spriteList,spriteSize);
+    genLastLine(&spriteList,spriteSize);
 
     genLadders(&ladderList, spriteSize);
 
-    player.x= 100;
-    player.y = 100;
+    player.x= 101;
+    player.y = 555;
     player.velX = 0;
     player.accX = 0;
     player.image[0] = al_load_bitmap("Sprites/marioStill.png");
@@ -130,7 +139,7 @@ int main() {
         al_wait_for_event(queue, &event);
 
 
-    //----------------------- Event Detection ---------------------------------------------------------------------------------
+        //----------------------- Event Detection ---------------------------------------------------------------------------------
 
         if(isCollidingWithAny(&player,spriteList)){
 
@@ -197,8 +206,13 @@ int main() {
                     key[KEY_SPACE] = false;
                     break;
                 case ALLEGRO_KEY_P:
-                    printf("Barrel\n");
+                    printf("Barrel 1\n");
                     createBarrel(173,173,1,&barrelList,barrelSize);
+                    break;
+                case ALLEGRO_KEY_K:
+                    printf("Barrel 2\n");
+                    createBarrel(173,173,2,&barrelList,barrelSize);
+                    break;
             }
         }
 
@@ -209,11 +223,17 @@ int main() {
 
         }
 
-    //----------------------- Updates ---------------------------------------------------------------------------------
+        //----------------------- Updates ---------------------------------------------------------------------------------
         if(key[KEY_SPACE]){
             if(!falling){
                 player.jumping = true;
                 player.velY -=JUMP;
+                if(player.movingR){
+                    player.velX += 5;
+                }
+                if(player.movingL){
+                    player.velX -= 5;
+                }
                 if(player.velY > JUMP){
 
                     player.velY = JUMP;
@@ -277,13 +297,15 @@ int main() {
 
 
 
-    //----------------------- Rendering ---------------------------------------------------------------------------------
+        //----------------------- Rendering ---------------------------------------------------------------------------------
 
         if(event.type == ALLEGRO_EVENT_TIMER){
 
             count +=1;
 
             if(count >= 15){
+
+                updateBarrelInds(barrelList);
 
                 count = 0;
                 if(player.velX != 0 && (player.movingR || player.movingL)) {
@@ -325,5 +347,5 @@ int main() {
     al_uninstall_keyboard();
     al_destroy_timer(timer);
 
-    return 0;
+
 }

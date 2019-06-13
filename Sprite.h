@@ -47,7 +47,7 @@ struct Sprite{
 struct Barrel{
     float x, y;
     float velX, velY;
-    int type, w, h, dir;
+    int type, w, h, dir, ind;
     ALLEGRO_BITMAP *spriteSheet;
 
 };
@@ -58,23 +58,26 @@ void createBarrel(float x, float y, int type, struct Node **node, int spriteSize
 
     barrel.x = x;
     barrel.y = y;
-    barrel.w = 77-66;
-    barrel.h = 267-258;
+    barrel.ind = 0;
     barrel.type = type;
-    barrel.spriteSheet = al_load_bitmap("Sprites/enemies.png");
+    barrel.spriteSheet = al_load_bitmap("Sprites/misc-2.png");
     assert(barrel.spriteSheet != NULL);
 
     if(type == 1){
+        barrel.w = 77-66;
+        barrel.h = 267-258;
 
-        barrel.velX = 2;
-        barrel.velY = 2;
+        barrel.velX = 3.5;
+        barrel.velY = barrel.velX;
         barrel.dir = 1;
 
     }
     else if(type == 2){
+        barrel.w = 110-96;
+        barrel.h = 268-259;
 
         barrel.velX = 0;
-        barrel.velY = 1;
+        barrel.velY = 3.5;
 
     }
 
@@ -88,7 +91,8 @@ bool isBarrelColliding(struct Barrel *sprite, struct Sprite target){
        sprite->x + sprite->w*SCALE > target.x&&
        sprite->y + sprite->h*SCALE > target.y +2){
 
-        sprite->y = target.y + 2 - sprite->h*SCALE;
+        sprite->y = target.y + 5 - sprite->h*SCALE;
+        sprite->velY = 0;
         return true;
 
     }
@@ -98,6 +102,22 @@ bool isBarrelColliding(struct Barrel *sprite, struct Sprite target){
 
     }
 
+
+}
+
+void updateBarrelInds(struct Node *node){
+
+    struct Barrel * target;
+
+    while (node != NULL)
+    {
+        target = (struct Barrel *)node->data;
+
+        target->ind+=1;
+        target->ind = target->ind%4;
+
+        node = node->next;
+    }
 
 }
 
@@ -118,7 +138,6 @@ bool isBarrelCollidingAll(struct Barrel *barrel, struct Node *node){
 
 }
 
-
 void updateAllBarrels(struct Node *node, struct Node *platList){
     struct Barrel * target;
 
@@ -136,15 +155,17 @@ void updateAllBarrels(struct Node *node, struct Node *platList){
 void updateBarrel(struct Barrel *barrel, struct Node *node){
 
     if(barrel->type == 1){
-        printf("Updating\n");
 
         al_draw_scaled_bitmap(barrel->spriteSheet,
-                              212, 12, barrel->w, barrel->h,
+                              barrelImageX[barrel->ind], barrelImageY[barrel->ind], barrel->w+1, barrel->h+1,
                               barrel->x, barrel->y, (barrel->w)*SCALE, barrel->h*SCALE, 0);
 
 
         if(isBarrelCollidingAll(barrel,node)){
-            if(barrel->x > 530*1.15) {
+            if(barrel->y > 536*1.15){
+                barrel->dir = -1;
+            }
+            else if(barrel->x > 530*1.15) {
                 barrel->dir = -1;
             }
             else if(barrel->x < 54*1.15){
@@ -154,13 +175,19 @@ void updateBarrel(struct Barrel *barrel, struct Node *node){
             barrel->x += barrel->velX*barrel->dir;
 
 
-            printf("Drawing\n");
-
         }
         else{
 
             barrel->y += barrel->type;
         }
+    }
+    else if(barrel->type == 2){
+
+        al_draw_scaled_bitmap(barrel->spriteSheet,
+                              barrelImageX2[barrel->ind%2], barrelImageY2[barrel->ind%2], barrel->w+1, barrel->h+1,
+                              barrel->x, barrel->y, (barrel->w)*SCALE, barrel->h*SCALE, 0);
+        barrel->y += barrel->velY;
+
     }
 
 }
@@ -262,6 +289,8 @@ void updatePlayer(struct Sprite *player){
         player->movingL = false;
 
     }
+
+    printf("Vel: %f\n", player->velX);
 
 }
 
@@ -578,9 +607,37 @@ void genFifthLine(struct Node** node, unsigned spriteSize){
 
 }
 
+void genLastLine(struct Node** node, unsigned spriteSize){
+
+
+    float x = 489*1.15;
+    float y = 209*1.15;
+
+    for (int i = 0; i < 4; ++i) {
+
+        struct Sprite plat = createPlatform(x,y);
+        plat.w = PLAT_W*1.15;
+        plat.h = PLAT_H*1.15;
+
+        push(node,&plat,spriteSize);
+
+        x-=37*1.15;
+        y-=2*1.15;
+
+    }
+
+    struct Sprite plat = createPlatform(39*1.15,200*1.15);
+    plat.w = (376-39)*1.15;
+    plat.h = (218-200)*1.15;
+    push(node,&plat,spriteSize);
+
+
+
+}
+
 void genLadders(struct Node** node, unsigned spriteSize){
 
-    for (int i = 0; i < 8; ++i) {
+    for (int i = 0; i < ladderNum; ++i) {
 
         struct Sprite ladder = createLadder(ladderX1[i]*1.15, ladderY1[i]*1.15, ladderX2[i]*1.15, ladderY2[i]*1.15);
         ladder.h *= 1.15;
