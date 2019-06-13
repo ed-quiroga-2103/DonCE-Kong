@@ -1,0 +1,13 @@
+Compile: gcc main.c -o Main $(pkg-config --libs allegro-5)
+
+pkg-config = --libs allegro-5 allegro_image-5 allegro_primitives-5
+
+
+gcc main.c -o Main -lm $(pkg-config --libs allegro-5 allegro_image-5 allegro_primitives-5)
+Plataforma Inicial: (39, 584) - (300, 602)
+
+
+Escaleras
+
+//P1: 66, 258
+    //P2: 77, 267
