@@ -5,6 +5,9 @@
 #ifndef UNTITLED_SETTINGS_H
 #define UNTITLED_SETTINGS_H
 
+//VALUES USED IN THE GAME
+
+//Modifiers
 const float FPS = 45;
 const int WIDTH = 640;
 const int HEIGHT = 700;
@@ -15,6 +18,8 @@ const float FRICC = -0.2;
 const int PLATS = 3;
 const char MARIO_SHEET[] = "MarioSheet.png\0";
 int SCALE = 2;
+
+//Coordinates, widths and heights
 
 const int PLAT_W = 37;
 const int PLAT_H = 18;
@@ -59,13 +64,13 @@ const int hammerYCoords[2] = {399, 294};
 
 
 
-const int ladderNum = 10;
+const int ladderNum = 13;
 
-const int ladderX1[10] = {226,470,264,114,311,470,208,114,470,337};
-const int ladderX2[10] = {248,488,282,132,329,488,226,132,488,358};
+const int ladderX1[13] = {226,470,264,114,311,470,208,114,470,337,188,431,244};
+const int ladderX2[13] = {248,488,282,132,329,488,226,132,488,358,208,452,263};
 
-const int ladderY1[10] = {565,516,429,439,352,361,279,284,207,133};
-const int ladderY2[10] = {585,572,504,496,427,418,345,339,263,201};
+const int ladderY1[13] = {565,516,429,439,352,361,279,284,207,133,415,339,246};
+const int ladderY2[13] = {585,572,504,496,427,418,345,339,263,201,434,359,278};
 
 
 #endif //UNTITLED_SETTINGS_H

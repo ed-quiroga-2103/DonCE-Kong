@@ -16,7 +16,7 @@
 
 const float VEL = 1;
 
-
+//Sprite struct
 struct Sprite{
 
     float x, y;
@@ -44,7 +44,7 @@ struct Sprite{
     ALLEGRO_BITMAP *spriteSheet;
 
 };
-
+//Barrel struct
 struct Barrel{
     float x, y;
     float velX, velY;
@@ -53,6 +53,13 @@ struct Barrel{
 
 };
 
+
+/*
+ * Description: Creates a barrel and pushes it into the list
+ * Input: X, Y, Barrel type, Barrel list, Barrel Size
+ * Output: None
+ *
+ * */
 void createBarrel(float x, float y,int type, struct Node **node, int spriteSize){
 
     struct Barrel barrel;
@@ -117,6 +124,16 @@ void createBarrel(float x, float y,int type, struct Node **node, int spriteSize)
     push(node,&barrel,spriteSize);
 }
 
+
+/*
+ * Description: Returns a boolean that indicates if the barrel is colliding with a platform
+ * Input: Barrel struct, Sprite struct
+ * Output: True/False
+ *
+ * |||All the collition checking functions work the same way, because of that, there will be no documentation for other "is_X_Colliding" function
+ *
+ * */
+
 bool isBarrelColliding(struct Barrel *sprite, struct Sprite target){
 
     if(sprite->y + sprite->h*SCALE < target.y + target.h -2 &&
@@ -138,6 +155,13 @@ bool isBarrelColliding(struct Barrel *sprite, struct Sprite target){
 
 }
 
+
+/*
+ * Description: Updates the index of all the barrels. The index is used to select the image for the animation
+ * Input: Barrel list
+ * Output: None
+ *
+ * */
 void updateBarrelInds(struct Node *node){
 
     struct Barrel * target;
@@ -171,6 +195,13 @@ bool isBarrelCollidingAll(struct Barrel *barrel, struct Node *node){
 
 }
 
+/*
+ * Description: Updates the position of the barrels
+ * Input: Barrel list, Platform list, level
+ * Output: None
+ *
+ * */
+
 void updateAllBarrels(struct Node *node, struct Node *platList, int level){
     struct Barrel * target;
 
@@ -184,6 +215,14 @@ void updateAllBarrels(struct Node *node, struct Node *platList, int level){
     }
 
 }
+
+
+/*
+ * Description: Updates the position of a single barrel
+ * Input: Barrel struct, Platform list, level
+ * Output: None
+ *
+ * */
 
 void updateBarrel(struct Barrel *barrel, struct Node *node, int level){
 
@@ -265,11 +304,28 @@ void updateBarrel(struct Barrel *barrel, struct Node *node, int level){
 
 }
 
+
+/*
+ * Description: Draws a generic sprite
+ * Input: Sprite struct
+ * Output: None
+ *
+ * */
+
 void drawSprite(struct Sprite *sprite){
 
     al_draw_bitmap(sprite->image[sprite->imageInd], sprite->x, sprite->y, 0);
 
 }
+
+
+/*
+ * Description:  Allocates a sprite in memory
+ * Input: None
+ * Output: Sprite struct
+ *
+ * */
+
 
 struct Sprite allocateSprite(){
 
@@ -277,14 +333,13 @@ struct Sprite allocateSprite(){
 
 }
 
-struct Sprite createPlayer(float x, float y){
 
-    struct Sprite player;
-
-    return player;
-
-}
-
+/*
+ * Description:  Draws the image of the player using the imageInd value
+ * Input: Player struct
+ * Output: None
+ *
+ * */
 void drawPlayer(struct Sprite *player){
 
     if(player->jumping){
@@ -356,6 +411,12 @@ void drawPlayer(struct Sprite *player){
 
 }
 
+/*
+ * Description:  Updates the position of the player
+ * Input: Player struct
+ * Output: None
+ *
+ * */
 void updatePlayer(struct Sprite *player){
 
     if(!player->climbing) {
@@ -379,14 +440,13 @@ void updatePlayer(struct Sprite *player){
 
 }
 
-void showHitbox(struct Sprite sprite){
 
-    al_draw_filled_rectangle(sprite.x,
-                             sprite.y, sprite.x+sprite.w, sprite.y+sprite.h
-            , al_map_rgba_f(.6,0,.6,.6));
-
-}
-
+/*
+ * Description:  Creates a platform using its coordinates
+ * Input: X, Y
+ * Output: Sprite struct
+ *
+ * */
 struct Sprite createPlatform(float x, float y){
 
     struct Sprite plat;
@@ -406,6 +466,13 @@ struct Sprite createPlatform(float x, float y){
 
 }
 
+
+/*
+ * Description: Creates a ladder using its coordinates
+ * Input: X1, Y2, X2, Y2
+ * Output: Sprite struct
+ *
+ * */
 struct Sprite createLadder(float x1, float y1, float x2, float y2){
 
     struct Sprite ladder;
@@ -419,17 +486,7 @@ struct Sprite createLadder(float x1, float y1, float x2, float y2){
 
 }
 
-bool isBottomColliding(struct Sprite *player, struct Sprite *wall){
-
-    if(player->y + player->h +2> wall->y && player->y + player->h < wall->y + wall->h){
-        //player->y = target->y+1 - player->h;
-        return true;
-    }
-    else{
-        return false;
-    }
-
-}
+//Colliding functions
 
 bool isTopColliding(struct Sprite * sprite, struct Sprite target){
 
@@ -447,70 +504,6 @@ bool isTopColliding(struct Sprite * sprite, struct Sprite target){
 
     }
     else {return false;}
-
-}
-
-bool isSideColliding(struct Sprite * player, struct Sprite tiles){
-/*
-    float y = player->y;
-
-    for (; y < player->y+player->h; y++) {
-
-        if(tiles.y <= y-2 &&
-            tiles.y+tiles.h >= y-2 &&
-            player->x + player->w > tiles.x &&
-            player->y < tiles.y+tiles.h && player->jumping){
-
-
-            printf("Y: %f,%f\n", tiles.y, y);
-
-            player->velX = 0;
-            player->velY = 0;
-
-            player->x = tiles.x-player->w;
-
-            return true;
-
-        }
-
-*/
-    float pw = player->w, ph = player->h;
-    float px = player->x, py = player->y;
-    float lx = tiles.x, ly = tiles.y;
-    float lw = tiles.w, lh = tiles.h;
-
-    if(py+ph > ly && py<ly+lh){
-
-        if(px+pw > lx && px < lx){
-
-
-
-        }
-
-    }
-
-}
-
-bool isSideCollidingWithAny(struct Sprite* player, struct Node *node){
-
-    struct Sprite * target;
-
-
-    while (node != NULL)
-    {
-        target = (struct Sprite *)node->data;
-
-        if(isSideColliding(player,*target)){
-
-            return true;
-
-        }
-
-        node = node->next;
-    }
-
-
-    return false;
 
 }
 
@@ -625,14 +618,104 @@ bool isTopCollidingWithAny(struct Sprite *player, struct Node *node){
 
 }
 
-void drawAllSprites(struct Node *node){
+bool ladderCollide(struct Sprite *player, struct Sprite *ladder){
+
+    float playerBottom = player->y + player->h;
+
+    if(playerBottom > ladder->y &&
+       player->x > ladder->x-player->w &&
+       player->x < ladder->x+5 + ladder->w &&
+       playerBottom < ladder->y + ladder->h){
+
+
+        return true;
+
+    }
+    else{
+
+        return false;
+
+    }
+
+
+}
+
+bool allLadderCollide(struct Sprite* player, struct Node *node){
+    struct Sprite * target;
+
+
     while (node != NULL)
     {
-        struct Sprite * sprite = (struct Sprite *)node->data;
-        drawSprite(sprite);
+        target = (struct Sprite *)node->data;
+
+        if(ladderCollide(player,target)){
+
+            return true;
+
+        }
+
         node = node->next;
     }
+
+
+    return false;
+
 }
+
+bool hammerCollide(struct Sprite *sprite, struct Sprite * target){
+
+    if(sprite->y < target->y + target->h -2 &&
+       sprite->x < target->x  + target->w &&
+       sprite->x + sprite->w > target->x&&
+       sprite->y + sprite->h > target->y +2){
+
+
+        target->x = -500;
+        target->y = -500;
+
+        return true;
+
+    }
+    else{
+        return false;
+
+    }
+
+
+}
+
+bool allHammerCollide(struct Sprite* player, struct Node *node){
+    struct Sprite * target;
+
+
+    while (node != NULL)
+    {
+        target = (struct Sprite *)node->data;
+
+        if(hammerCollide(player,target)){
+
+            return true;
+
+        }
+
+        node = node->next;
+    }
+
+
+    return false;
+
+}
+
+//------------------------------------------------
+
+
+/*
+ * Description:  The next 7 functions create the platforms and the ladders that appear on screen, and pushes them into a list
+ * Input: Ladder list/ Platform list, spriteSize
+ * Output: None
+ *
+ * */
+
 
 void genFirstLine(struct Node** node, unsigned spriteSize){
 
@@ -785,93 +868,14 @@ void genLadders(struct Node** node, unsigned spriteSize){
 
 }
 
-bool ladderCollide(struct Sprite *player, struct Sprite *ladder){
-
-    float playerBottom = player->y + player->h;
-
-    if(playerBottom > ladder->y &&
-       player->x > ladder->x-player->w &&
-       player->x < ladder->x+5 + ladder->w &&
-       playerBottom < ladder->y + ladder->h){
 
 
-        return true;
-
-    }
-    else{
-
-        return false;
-
-    }
-
-
-}
-
-bool allLadderCollide(struct Sprite* player, struct Node *node){
-    struct Sprite * target;
-
-
-    while (node != NULL)
-    {
-        target = (struct Sprite *)node->data;
-
-        if(ladderCollide(player,target)){
-
-            return true;
-
-        }
-
-        node = node->next;
-    }
-
-
-    return false;
-
-}
-
-bool hammerCollide(struct Sprite *sprite, struct Sprite * target){
-
-    if(sprite->y < target->y + target->h -2 &&
-       sprite->x < target->x  + target->w &&
-       sprite->x + sprite->w > target->x&&
-       sprite->y + sprite->h > target->y +2){
-
-
-        target->x = -500;
-        target->y = -500;
-
-        return true;
-
-    }
-    else{
-        return false;
-
-    }
-
-
-}
-
-bool allHammerCollide(struct Sprite* player, struct Node *node){
-    struct Sprite * target;
-
-
-    while (node != NULL)
-    {
-        target = (struct Sprite *)node->data;
-
-        if(hammerCollide(player,target)){
-
-            return true;
-
-        }
-
-        node = node->next;
-    }
-
-
-    return false;
-
-}
+/*
+ * Description: Creates a hammer sprite
+ * Input: Index, used in the coordinates selection
+ * Output: Sprite struct
+ *
+ * */
 
 struct Sprite createHammer(int ind){
 
@@ -886,6 +890,14 @@ struct Sprite createHammer(int ind){
 
 }
 
+
+/*
+ * Description:  Generates all the hammers on screen
+ * Input: Hammer list, sprite size
+ * Output: Sprite struct
+ *
+ * */
+
 void genHammers(struct Node** node, unsigned spriteSize){
 
     struct Sprite hammer;
@@ -898,6 +910,14 @@ void genHammers(struct Node** node, unsigned spriteSize){
     }
 
 }
+
+
+/*
+ * Description:  Draws all the hammers on screen
+ * Input: Hammer list
+ * Output: None
+ *
+ * */
 
 void drawHammers(struct Node* node){
 
@@ -923,6 +943,8 @@ void drawHammers(struct Node* node){
 
 }
 
+//Fireball creation works the same way than the hammer creation
+
 struct Sprite createFireBall(struct Node** node){
 
     struct Sprite fireball;
@@ -937,6 +959,14 @@ struct Sprite createFireBall(struct Node** node){
 
 }
 
+
+
+/*
+ * Description: Moves the fireballs closer to Mario
+ * Input: Player struct, Fireball struct, level
+ * Output: None
+ *
+ * */
 void moveFireBall(struct Sprite *player, struct Sprite *fireball, int level){
 
     int testX = 500;
@@ -1009,6 +1039,13 @@ void moveFireBall(struct Sprite *player, struct Sprite *fireball, int level){
 
 }
 
+
+/*
+ * Description:  Draws and moves all the fireballs on screen
+ * Input: Player struct, Fireball struct, level
+ * Output: None
+ *
+ * */
 void updateFireBall(struct Sprite *player,struct Sprite *fireball, int level){
 
     moveFireBall(player,fireball, level);

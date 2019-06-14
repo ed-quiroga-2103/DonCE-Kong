@@ -39,7 +39,7 @@ void gameOver();
 static void *Func_Thread1(ALLEGRO_THREAD *thr, void *arg);
 static void *Func_Thread2(ALLEGRO_THREAD *thr, void *arg);
 #define SA struct sockaddr
-#define PORT 4444
+#define PORT 8888
 
 void func(int sockfd)
 {
@@ -58,6 +58,7 @@ void func(int sockfd)
         read(sockfd, buff, sizeof(buff));
         printf("From Server : %s", buff);
 
+        //Checking the message for a barrel code
         if((strncmp(buff, "1", 1)) == 0){
 
             barrelCode = 1;
@@ -101,8 +102,6 @@ void func(int sockfd)
     }
 }
 
-
-
 int main() {
 
 //-------------------------------------------------Threads--------------------------------------------------------------
@@ -116,13 +115,9 @@ int main() {
 
     printf("Done\n");
 
+    //Loop to keep the program running
     while(running){}
-/*
-    start();
-    printf("done\n");
 
-
-*/
     return 0;
 }
 
@@ -164,25 +159,29 @@ static void *Func_Thread1(ALLEGRO_THREAD *thr, void *arg) {
         return NULL;
 
 }
+
 static void *Func_Thread2(ALLEGRO_THREAD *thr, void *arg) {
 
     while (!al_get_thread_should_stop(thr)) {
-
+    //Settings for the game
         int lives = 5;
         int level = 0;
         while(lives != 0){
+            //Winning the level
             int code = start(level);
             if (code == 1){
                 level +=1;
                 win();
                 lives +=1;
             }
+            //Win case
             else if(level == 10){
-
+                win();
                 running = false;
                 break;
 
             }
+            //Loss case
             else{
                 lives-=1;
             }
@@ -197,7 +196,7 @@ static void *Func_Thread2(ALLEGRO_THREAD *thr, void *arg) {
         return NULL;
 
 }
-
+//Game over display
 void gameOver(){
 
     al_init();
@@ -270,7 +269,7 @@ void gameOver(){
         }
     }
 }
-
+//Winning display
 void win(){
     al_init();
     al_init_image_addon();
@@ -346,7 +345,7 @@ void win(){
         }
     }
 }
-
+//Main game function
 int start(int level){
     printf("Initializing!\n");
 
@@ -392,7 +391,7 @@ int start(int level){
 
     struct Sprite player = allocateSprite();
 
-
+    //List creation
     struct Node *spriteList = NULL;
     struct Node *ladderList = NULL;
     struct Node *barrelList = NULL;
@@ -401,8 +400,7 @@ int start(int level){
     unsigned spriteSize = sizeof(struct Sprite);
     unsigned barrelSize = sizeof(struct Barrel);
 
-    //genPlats(&spriteList,spriteSize, width, height);
-
+    //Platform creation
     struct Sprite plat;
     plat.x = 39*1.15;
     plat.y = 584*1.15;
@@ -422,7 +420,7 @@ int start(int level){
     genLadders(&ladderList, spriteSize);
 
     genHammers(&hammerList, spriteSize);
-
+    //Player settings
     player.x= 101;
     player.y = 555;
     player.velX = 0;
@@ -450,8 +448,7 @@ int start(int level){
     player.bx = player.w/2;
     player.by = player.h/2;
 
-    //TRABAJAR DIRECTAMENTE CON PUNTEROS
-
+    //Timer and game states
     al_start_timer(timer);
 
     bool showingHitboxes = false;
@@ -478,14 +475,14 @@ int start(int level){
             player.hammer = true;
 
         }
-
+        //Platform collition
         if(isCollidingWithAny(&player,spriteList)){
 
             colliding = true;
             falling = false;
 
         } else {colliding = false; falling = true;};
-
+        //Barrel collition
         if(isCollidingWithBarrels(&player,barrelList)){
             al_destroy_display(display);
             al_uninstall_keyboard();
@@ -494,7 +491,7 @@ int start(int level){
             return -1;
 
         }
-
+        //Ladder collition
         if(allLadderCollide(&player,ladderList)){
 
             player.climbing = true;
@@ -506,6 +503,7 @@ int start(int level){
             player.climbing = false;
         }
 
+        //Keyboard detection
         if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
 
             switch(event.keyboard.keycode) {
@@ -553,6 +551,7 @@ int start(int level){
                 case ALLEGRO_KEY_SPACE:
                     key[KEY_SPACE] = false;
                     break;
+                //P,K and L are used for debugging
                 case ALLEGRO_KEY_P:
                     printf("Barrel 1\n");
                     createBarrel(173,173,1,&barrelList,barrelSize);
@@ -567,7 +566,7 @@ int start(int level){
                     break;
             }
         }
-
+        //Barrel creation from server-----------------------------------------------------------------------------------
         if(barrelCode == 1){
 
             createBarrel(173,173,1,&barrelList,barrelSize);
@@ -600,15 +599,16 @@ int start(int level){
         if(barrelCode == 33){    createBarrel(width-173,173,3,&barrelList,barrelSize);
             barrelCode = 0;
         }
+    //------------------------------------------------------------------------------------------------------------------
 
-
+        //If the window is closed
         if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
 
             running = false;
 
         }
 
-        //----------------------- Updates ---------------------------------------------------------------------------------
+        //----------------------- Updates ------------------------------------------------------------------------------
         if(key[KEY_SPACE]){
             if(!falling){
                 player.jumping = true;
@@ -629,6 +629,7 @@ int start(int level){
             }
         }
 
+        //If the player falls off the map
         if(player.y > height*1.15){
             al_destroy_display(display);
             al_uninstall_keyboard();
@@ -638,6 +639,7 @@ int start(int level){
 
         }
 
+        //Level win condition (reaching the princess)
         if(player.y < 133 && player.x < 295){
 
             al_destroy_display(display);
@@ -649,14 +651,25 @@ int start(int level){
 
         }
 
+        //Fireball collition (Uses the same function as the ladders)
+        if(allLadderCollide(&player,fireList)){
+            al_destroy_display(display);
+            al_uninstall_keyboard();
+            al_destroy_timer(timer);
+            msg = 1;
 
+            return -1;
+
+        }
+        //Stop the player if colliding with a platform
         if(colliding){
-            showHitbox(player);
+
             player.accY = 0;
 
         }
         else player.accY = GRAV;
 
+        //-------------------------------------------Movement-----------------------------------------------------------
         if (key[KEY_RIGHT]) {
             player.movingR = true;
             player.accX = ACC;
@@ -686,23 +699,22 @@ int start(int level){
             player.jumping = false;
 
         }
-        if(isSideCollidingWithAny(&player, spriteList)){
-
-            //printf("Colliding\n");
-        }
+        //--------------------------------------------------------------------------------------------------------------
 
 
         updatePlayer(&player);
 
 
 
-        //----------------------- Rendering ---------------------------------------------------------------------------------
+        //----------------------- Rendering ----------------------------------------------------------------------------
 
         if(event.type == ALLEGRO_EVENT_TIMER){
 
             count +=1;
             countBall +=1;
             moveCount +=1;
+
+            //Hammer timer
             if(player.hammer){
 
                 hammerTimer+=1;
@@ -715,6 +727,7 @@ int start(int level){
                 }
 
             }
+            //Drawing sprites, background and enemies
             al_clear_to_color(al_map_rgb_f(255,0,0));
 
             al_draw_scaled_bitmap(background,0,0,width,height,0,0,width*1.15,height*1.15,0);
@@ -738,12 +751,15 @@ int start(int level){
                 updateBarrelInds(barrelList);
 
                 count = 0;
+
+                //imageInd is used in the animation of the player and other sprites
                 if(player.velX != 0 && (player.movingR || player.movingL)) {
                     (&player)->imageInd += 1;
                     (&player)->imageInd = (&player)->imageInd % 2;
                     (&player)->hammerInd += 1;
                     (&player)->hammerInd = (&player)->hammerInd%3;
                 }
+                //If the player isnt moving
                 if(!(player.movingR || player.movingL)){
 
                     player.imageInd = 0;
@@ -755,15 +771,10 @@ int start(int level){
 
 
             updateAllBarrels(barrelList,spriteList,level);
-
             drawHammers(hammerList);
-
 
             drawPlayer(&player);
             drawFireBalls(fireList);
-
-            //if(colliding || showingHitboxes) showHitbox(player);
-
 
             al_flip_display();
         }
