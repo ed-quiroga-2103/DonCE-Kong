@@ -39,7 +39,7 @@ void gameOver();
 static void *Func_Thread1(ALLEGRO_THREAD *thr, void *arg);
 static void *Func_Thread2(ALLEGRO_THREAD *thr, void *arg);
 #define SA struct sockaddr
-#define PORT 8888
+#define PORT 4444
 
 void func(int sockfd)
 {
@@ -77,6 +77,22 @@ void func(int sockfd)
             barrelCode = 23;
 
         }
+        if((strncmp(buff, "31", 2)) == 0){
+            printf("31\n");
+            barrelCode = 31;
+
+        }
+        if((strncmp(buff, "32", 2)) == 0){
+
+            barrelCode = 32;
+
+        }
+        if((strncmp(buff, "33", 2)) == 0){
+
+            barrelCode = 33;
+
+        }
+
 
         if ((strncmp(buff, "exit", 4)) == 0) {
             printf("Client Exit...\n");
@@ -159,10 +175,12 @@ static void *Func_Thread2(ALLEGRO_THREAD *thr, void *arg) {
             if (code == 1){
                 level +=1;
                 win();
+                lives +=1;
             }
             else if(level == 10){
 
-                //ganar
+                running = false;
+                break;
 
             }
             else{
@@ -379,6 +397,7 @@ int start(int level){
     struct Node *ladderList = NULL;
     struct Node *barrelList = NULL;
     struct Node *hammerList = NULL;
+    struct Node *fireList = NULL;
     unsigned spriteSize = sizeof(struct Sprite);
     unsigned barrelSize = sizeof(struct Barrel);
 
@@ -414,6 +433,7 @@ int start(int level){
     player.movingR = false;
     player.movingL = false;
     player.lastR = true;
+    player.hammer = false;
 
     player.spriteSheet = al_load_bitmap("Sprites/marioSheet.png");
 
@@ -439,9 +459,10 @@ int start(int level){
     bool falling = true;
     player.climbing = false;
 
-    bool devPriv = false;
-
     int count = 0;
+    int countBall = 0;
+    int hammerTimer = 0;
+    int moveCount = 0;
 
 //----------------------- Game Loop ---------------------------------------------------------------------------------
 
@@ -452,6 +473,11 @@ int start(int level){
 
 
         //----------------------- Event Detection ---------------------------------------------------------------------------------
+        if(allHammerCollide(&player,hammerList)){
+
+            player.hammer = true;
+
+        }
 
         if(isCollidingWithAny(&player,spriteList)){
 
@@ -535,6 +561,10 @@ int start(int level){
                     printf("Barrel 2\n");
                     createBarrel(173,173,2,&barrelList,barrelSize);
                     break;
+                case ALLEGRO_KEY_L:
+                    printf("Barrel 2\n");
+                    createBarrel(173,173,3,&barrelList,barrelSize);
+                    break;
             }
         }
 
@@ -561,6 +591,16 @@ int start(int level){
             barrelCode = 0;
 
         }
+        if(barrelCode == 31){createBarrel(173,173,3,&barrelList,barrelSize);
+            barrelCode = 0;
+        }
+        if(barrelCode == 32){    createBarrel(width/2,173,3,&barrelList,barrelSize);
+            barrelCode = 0;
+        }
+        if(barrelCode == 33){    createBarrel(width-173,173,3,&barrelList,barrelSize);
+            barrelCode = 0;
+        }
+
 
         if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
 
@@ -661,6 +701,37 @@ int start(int level){
         if(event.type == ALLEGRO_EVENT_TIMER){
 
             count +=1;
+            countBall +=1;
+            moveCount +=1;
+            if(player.hammer){
+
+                hammerTimer+=1;
+
+                if(hammerTimer == 480){
+
+                    player.hammer = false;
+                    hammerTimer = 0;
+
+                }
+
+            }
+            al_clear_to_color(al_map_rgb_f(255,0,0));
+
+            al_draw_scaled_bitmap(background,0,0,width,height,0,0,width*1.15,height*1.15,0);
+
+
+            if(countBall > 300){
+
+                countBall = 0;
+                createFireBall(&fireList);
+
+            }
+            if(moveCount > 1){
+                moveCount = 0;
+                updateAllFireBalls(&player,fireList, level);
+
+            }
+
 
             if(count >= 15){
 
@@ -670,6 +741,8 @@ int start(int level){
                 if(player.velX != 0 && (player.movingR || player.movingL)) {
                     (&player)->imageInd += 1;
                     (&player)->imageInd = (&player)->imageInd % 2;
+                    (&player)->hammerInd += 1;
+                    (&player)->hammerInd = (&player)->hammerInd%3;
                 }
                 if(!(player.movingR || player.movingL)){
 
@@ -681,18 +754,13 @@ int start(int level){
             }
 
 
-            al_clear_to_color(al_map_rgb_f(255,0,0));
-
-
-            //drawAllSprites(spriteList);
-            //al_draw_bitmap(background,0,0,0);
-            al_draw_scaled_bitmap(background,0,0,width,height,0,0,width*1.15,height*1.15,0);
             updateAllBarrels(barrelList,spriteList,level);
 
             drawHammers(hammerList);
 
 
             drawPlayer(&player);
+            drawFireBalls(fireList);
 
             //if(colliding || showingHitboxes) showHitbox(player);
 

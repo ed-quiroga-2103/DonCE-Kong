@@ -36,8 +36,9 @@ struct Sprite{
     bool lastR;
     bool jumping;
     bool climbing;
+    bool hammer;
 
-    int imageInd;
+    int imageInd, hammerInd;
 
     ALLEGRO_BITMAP *image[2];
     ALLEGRO_BITMAP *spriteSheet;
@@ -47,7 +48,7 @@ struct Sprite{
 struct Barrel{
     float x, y;
     float velX, velY;
-    int type, w, h, dir, ind;
+    int type, w, h, dir, ind, land;
     ALLEGRO_BITMAP *spriteSheet;
 
 };
@@ -63,6 +64,8 @@ void createBarrel(float x, float y,int type, struct Node **node, int spriteSize)
     barrel.spriteSheet = al_load_bitmap("Sprites/misc-2.png");
     assert(barrel.spriteSheet != NULL);
 
+
+
     if(type == 1){
         barrel.w = 77-66;
         barrel.h = 267-258;
@@ -73,12 +76,42 @@ void createBarrel(float x, float y,int type, struct Node **node, int spriteSize)
 
     }
     else if(type == 2){
+
         barrel.w = 110-96;
         barrel.h = 268-259;
-
         barrel.velX = 0;
         barrel.velY = 3.5;
 
+    }
+    else if(type == 3){
+        barrel.w = 110-96;
+        barrel.h = 268-259;
+
+
+        barrel.velX = 2;
+        barrel.velY = barrel.velX;
+
+        srand(time(NULL));   // Initialization, should only be called once.
+        int ind = rand()%4;
+
+        barrel.land = barrelLanding[ind];
+
+        switch (ind){
+
+            case 0:
+                barrel.dir = 1;
+                break;
+            case 1:
+                barrel.dir = -1;
+                break;
+            case 2:
+                barrel.dir = 1;
+                break;
+            case 3:
+                barrel.dir = -1;
+                break;
+
+        }
     }
 
     push(node,&barrel,spriteSize);
@@ -189,9 +222,48 @@ void updateBarrel(struct Barrel *barrel, struct Node *node, int level){
         barrel->y += barrel->velY;
 
     }
+    else if(barrel->type == 3){
+
+        if(barrel->y < barrel->land){
+
+            al_draw_scaled_bitmap(barrel->spriteSheet,
+                                  barrelImageX2[barrel->ind%2], barrelImageY2[barrel->ind%2], barrel->w+1, barrel->h+1,
+                                  barrel->x, barrel->y, (barrel->w)*SCALE, barrel->h*SCALE, 0);
+            barrel->y += barrel->velY;
+
+
+        }
+        else{
+            barrel->w = 77-66;
+            barrel->h = 267-258;
+
+            al_draw_scaled_bitmap(barrel->spriteSheet,
+                                  barrelImageX[barrel->ind], barrelImageY[barrel->ind], barrel->w+1, barrel->h+1,
+                                  barrel->x, barrel->y, (barrel->w)*SCALE, barrel->h*SCALE, 0);
+
+
+            if(isBarrelCollidingAll(barrel,node)) {
+                if (barrel->y > 536 * 1.15) {
+                    barrel->dir = -1;
+                } else if (barrel->x > 530 * 1.15) {
+                    barrel->dir = -1;
+                } else if (barrel->x < 54 * 1.15) {
+                    barrel->dir = 1;
+                }
+
+                barrel->x += (barrel->velX + (barrel->velX * level) / 5) * barrel->dir;
+
+
+            }
+            else{
+
+                barrel->y += barrel->type + (barrel->type*level)/5;
+            }
+        }
+
+    }
 
 }
-
 
 void drawSprite(struct Sprite *sprite){
 
@@ -236,14 +308,28 @@ void drawPlayer(struct Sprite *player){
     }
 
     else if(player->movingR){
+/*
+        if(player->hammer){
+            ALLEGRO_BITMAP * hammerSprites = al_load_bitmap("Sprites/misc-2.png");
 
-        //al_draw_bitmap_region(player->spriteSheet, playerImageX1[player->imageInd], 0, 13
-          //      , 24, player->x, player->y, 0);
+            player->h = playerHammerH[player->hammerInd];
+            player->w = playerHammerW[player->hammerInd];
 
-        al_draw_scaled_bitmap(player->spriteSheet,
-                                   playerImageX1[player->imageInd], 0, 13, 24,
-                                   player->x, player->y, (13+3)*SCALE, 24*SCALE, 0);
 
+            al_draw_scaled_bitmap(hammerSprites,
+                                  playerHammerX[player->hammerInd], playerHammerY[player->hammerInd],
+                                  playerHammerW[player->hammerInd], playerHammerH[player->hammerInd],
+                                  player->x, player->y,
+                                  playerHammerW[player->hammerInd]*SCALE, playerHammerH[player->hammerInd]*SCALE, 0);
+
+        }
+        else {*/
+
+
+            al_draw_scaled_bitmap(player->spriteSheet,
+                                  playerImageX1[player->imageInd], 0, 13, 24,
+                                  player->x, player->y, (13 + 3) * SCALE, 24 * SCALE, 0);
+       // }
     }
     else if(player->movingL){
 
@@ -471,13 +557,19 @@ bool isCollidingWithAny(struct Sprite *player, struct Node *node){
 
 }
 
+bool isCollidingWithBarrel(struct Sprite * sprite, struct Barrel *target){
+    if(sprite->y < target->y + target->h -2 &&
+       sprite->x < target->x  + target->w &&
+       sprite->x + sprite->w > target->x&&
+       sprite->y + sprite->h > target->y +2){
 
-bool isCollidingWithBarrel(struct Sprite * sprite, struct Barrel target){
-    if(sprite->y + sprite->h < target.y + target.h -2 &&
-       sprite->x < target.x  + target.w &&
-       sprite->x + sprite->w > target.x&&
-       sprite->y + sprite->h > target.y +2){
+        if(sprite->hammer){
 
+            target->x = -500;
+            target->y = -500;
+            return false;
+
+        }
 
         return true;
 
@@ -488,6 +580,7 @@ bool isCollidingWithBarrel(struct Sprite * sprite, struct Barrel target){
 
     }
 }
+
 bool isCollidingWithBarrels(struct Sprite *player, struct Node *node){
     struct Barrel * target;
 
@@ -496,7 +589,7 @@ bool isCollidingWithBarrels(struct Sprite *player, struct Node *node){
     {
         target = (struct Barrel *)node->data;
 
-        if(isCollidingWithBarrel(player,*target)){
+        if(isCollidingWithBarrel(player,target)){
 
             return true;
 
@@ -736,11 +829,55 @@ bool allLadderCollide(struct Sprite* player, struct Node *node){
 
 }
 
+bool hammerCollide(struct Sprite *sprite, struct Sprite * target){
+
+    if(sprite->y < target->y + target->h -2 &&
+       sprite->x < target->x  + target->w &&
+       sprite->x + sprite->w > target->x&&
+       sprite->y + sprite->h > target->y +2){
+
+
+        target->x = -500;
+        target->y = -500;
+
+        return true;
+
+    }
+    else{
+        return false;
+
+    }
+
+
+}
+
+bool allHammerCollide(struct Sprite* player, struct Node *node){
+    struct Sprite * target;
+
+
+    while (node != NULL)
+    {
+        target = (struct Sprite *)node->data;
+
+        if(hammerCollide(player,target)){
+
+            return true;
+
+        }
+
+        node = node->next;
+    }
+
+
+    return false;
+
+}
+
 struct Sprite createHammer(int ind){
 
     struct Sprite hammer;
-    hammer.x = hammerXCoords[ind];
-    hammer.y = hammerYCoords[ind];
+    hammer.x = hammerXCoords[ind]*1.15;
+    hammer.y = hammerYCoords[ind]*1.15;
 
     hammer.h = hammerH;
     hammer.w = hammerW;
@@ -776,13 +913,148 @@ void drawHammers(struct Node* node){
 
         al_draw_scaled_bitmap(spritesheet,
                               hammerX,hammerY, hammerW, hammerH,
-                              target->x*1.15,target->y*1.15,hammerW*SCALE, hammerH*SCALE, 0);
+                              target->x,target->y,hammerW*SCALE, hammerH*SCALE, 0);
 
 
 
         node = node->next;
     }
 
+
+}
+
+struct Sprite createFireBall(struct Node** node){
+
+    struct Sprite fireball;
+    fireball.x = 0;
+    fireball.y = 800;
+    fireball.imageInd = 0;
+    fireball.spriteSheet = al_load_bitmap("Sprites/misc-2.png");
+
+    push(node,&fireball, sizeof(struct Sprite));
+    printf("Created");
+    return fireball;
+
+}
+
+void moveFireBall(struct Sprite *player, struct Sprite *fireball, int level){
+
+    int testX = 500;
+    int testY = 500;
+    int minInd = 0;
+    double distance = pow(player->x-fireball->x,2) + pow(player->y-fireball->y,2);
+    distance = sqrt(distance);
+
+    double distanceCmp;
+
+    int x[8] = {1,-1,0,0,1,-1,1,-1};
+    int y[8] = {0,0,1,-1,1,-1,-1,1};
+
+    for (int i = 0; i < 8; ++i) {
+        distanceCmp = pow(player->x-x[i]-fireball->x,2) + pow(player->y-y[i]-fireball->y,2);
+        distanceCmp = sqrt(distanceCmp);
+        if(distanceCmp < distance){
+            distance = distanceCmp;
+            minInd = i;
+        }
+
+    }
+
+
+    switch (minInd){
+
+        case 0:
+            fireball->x += x[minInd]+level*.10;
+            fireball->y += y[minInd];
+            break;
+
+        case 1:
+            fireball->x += x[minInd]-level*.10;
+            fireball->y += y[minInd];
+            break;
+
+        case 2:
+            fireball->x += x[minInd];
+            fireball->y += y[minInd]+level*.10;
+            break;
+
+        case 3:
+            fireball->x += x[minInd];
+            fireball->y += y[minInd]-level*.10;
+            break;
+
+        case 4:
+            fireball->x += x[minInd]+level*.10;
+            fireball->y += y[minInd]+level*.10;
+            break;
+
+        case 5:
+            fireball->x += x[minInd]-level*.10;
+            fireball->y += y[minInd]-level*.10;
+            break;
+
+        case 6:
+            fireball->x += x[minInd]+level*.10;
+            fireball->y += y[minInd]-level*.10;
+            break;
+
+        case 7:
+            fireball->x += x[minInd]-level*.10;
+            fireball->y += y[minInd]+level*.10;
+            break;
+
+
+    }
+
+
+}
+
+void updateFireBall(struct Sprite *player,struct Sprite *fireball, int level){
+
+    moveFireBall(player,fireball, level);
+
+    al_draw_scaled_bitmap(fireball->spriteSheet,
+                          fireBallX[fireball->imageInd], fireBallY[fireball->imageInd],
+                          173-157, 237-221,
+                          fireball->x, fireball->y, (173-157)*SCALE, (237-221)*SCALE, 0);
+
+}
+
+void drawFireBall(struct Sprite *fireball){
+
+    al_draw_scaled_bitmap(fireball->spriteSheet,
+                          fireBallX[fireball->imageInd], fireBallY[fireball->imageInd],
+                          173-157, 237-221,
+                          fireball->x, fireball->y, (173-157)*SCALE, (237-221)*SCALE, 0);
+}
+
+void drawFireBalls(struct Node *node){
+    struct Sprite * target;
+
+    while (node != NULL)
+    {
+        target = (struct Sprite *)node->data;
+
+        drawFireBall(target);
+
+        node = node->next;
+    }
+
+
+}
+
+void updateAllFireBalls(struct Sprite *player, struct Node *node, int level){
+
+    struct Sprite * target;
+
+    while (node != NULL)
+    {
+        target = (struct Sprite *)node->data;
+
+        updateFireBall(player,target,level);
+
+        node = node->next;
+    }
 
 }
 

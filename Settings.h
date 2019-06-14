@@ -25,6 +25,17 @@ const int PLAT_COORDSY1 = 582;
 const int playerImageX1[2] = {161,199};
 const int playerImageX2[2] = {121,80};
 
+const int fireBallX[2] = {157,132};
+const int fireBallY[2] = {221,221};
+
+const double barrelLanding[4] = {471*1.15,389*1.15,306*1.15,235*1.15};
+
+const int playerHammerX[3] = {158,188,208};
+const int playerHammerY[3] = {54,41,55};
+
+const int playerHammerW[3] = {183-158,202-188,236-208};
+const int playerHammerH[3] = {71-54,71-41, 71-55};
+
 const int barrelImageX[4] = {66,81,81,66};
 const int barrelImageY[4] = {258,258,270,270};
 
