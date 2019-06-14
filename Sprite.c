@@ -58,7 +58,7 @@ bool isBarrelColliding(struct Barrel *sprite, struct Sprite target);
 
 bool isBarrelCollidingAll(struct Barrel *barrel, struct Node *node);
 
-void updateBarrel(struct Barrel *barrel, struct Node *node);
+void updateBarrel(struct Barrel *barrel, struct Node *node, int level);
 
 void createBarrel(float x, float y, int type, struct Node **node, int spriteSize);
 

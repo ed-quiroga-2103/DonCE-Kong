@@ -177,6 +177,33 @@ Sprite.c.s:
 	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Sprite.c.s
 .PHONY : Sprite.c.s
 
+client.o: client.c.o
+
+.PHONY : client.o
+
+# target to build an object file
+client.c.o:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/client.c.o
+.PHONY : client.c.o
+
+client.i: client.c.i
+
+.PHONY : client.i
+
+# target to preprocess a source file
+client.c.i:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/client.c.i
+.PHONY : client.c.i
+
+client.s: client.c.s
+
+.PHONY : client.s
+
+# target to generate assembly for a file
+client.c.s:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/client.c.s
+.PHONY : client.c.s
+
 main.o: main.c.o
 
 .PHONY : main.o
@@ -204,6 +231,33 @@ main.c.s:
 	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/main.c.s
 .PHONY : main.c.s
 
+threadTest.o: threadTest.c.o
+
+.PHONY : threadTest.o
+
+# target to build an object file
+threadTest.c.o:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/threadTest.c.o
+.PHONY : threadTest.c.o
+
+threadTest.i: threadTest.c.i
+
+.PHONY : threadTest.i
+
+# target to preprocess a source file
+threadTest.c.i:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/threadTest.c.i
+.PHONY : threadTest.c.i
+
+threadTest.s: threadTest.c.s
+
+.PHONY : threadTest.s
+
+# target to generate assembly for a file
+threadTest.c.s:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/threadTest.c.s
+.PHONY : threadTest.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -219,9 +273,15 @@ help:
 	@echo "... Sprite.o"
 	@echo "... Sprite.i"
 	@echo "... Sprite.s"
+	@echo "... client.o"
+	@echo "... client.i"
+	@echo "... client.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... threadTest.o"
+	@echo "... threadTest.i"
+	@echo "... threadTest.s"
 .PHONY : help
 
 

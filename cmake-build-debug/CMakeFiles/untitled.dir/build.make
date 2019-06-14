@@ -70,9 +70,22 @@ CMakeFiles/untitled.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/untitled.dir/main.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/eduardo/Documents/Lenguajes/C/DonCE-Kong/main.c -o CMakeFiles/untitled.dir/main.c.s
 
+CMakeFiles/untitled.dir/client.c.o: CMakeFiles/untitled.dir/flags.make
+CMakeFiles/untitled.dir/client.c.o: ../client.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eduardo/Documents/Lenguajes/C/DonCE-Kong/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/untitled.dir/client.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/untitled.dir/client.c.o   -c /home/eduardo/Documents/Lenguajes/C/DonCE-Kong/client.c
+
+CMakeFiles/untitled.dir/client.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/untitled.dir/client.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/eduardo/Documents/Lenguajes/C/DonCE-Kong/client.c > CMakeFiles/untitled.dir/client.c.i
+
+CMakeFiles/untitled.dir/client.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/untitled.dir/client.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/eduardo/Documents/Lenguajes/C/DonCE-Kong/client.c -o CMakeFiles/untitled.dir/client.c.s
+
 CMakeFiles/untitled.dir/Sprite.c.o: CMakeFiles/untitled.dir/flags.make
 CMakeFiles/untitled.dir/Sprite.c.o: ../Sprite.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eduardo/Documents/Lenguajes/C/DonCE-Kong/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/untitled.dir/Sprite.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eduardo/Documents/Lenguajes/C/DonCE-Kong/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/untitled.dir/Sprite.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/untitled.dir/Sprite.c.o   -c /home/eduardo/Documents/Lenguajes/C/DonCE-Kong/Sprite.c
 
 CMakeFiles/untitled.dir/Sprite.c.i: cmake_force
@@ -85,7 +98,7 @@ CMakeFiles/untitled.dir/Sprite.c.s: cmake_force
 
 CMakeFiles/untitled.dir/LinkedList.c.o: CMakeFiles/untitled.dir/flags.make
 CMakeFiles/untitled.dir/LinkedList.c.o: ../LinkedList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eduardo/Documents/Lenguajes/C/DonCE-Kong/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/untitled.dir/LinkedList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eduardo/Documents/Lenguajes/C/DonCE-Kong/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/untitled.dir/LinkedList.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/untitled.dir/LinkedList.c.o   -c /home/eduardo/Documents/Lenguajes/C/DonCE-Kong/LinkedList.c
 
 CMakeFiles/untitled.dir/LinkedList.c.i: cmake_force
@@ -96,21 +109,38 @@ CMakeFiles/untitled.dir/LinkedList.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/untitled.dir/LinkedList.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/eduardo/Documents/Lenguajes/C/DonCE-Kong/LinkedList.c -o CMakeFiles/untitled.dir/LinkedList.c.s
 
+CMakeFiles/untitled.dir/threadTest.c.o: CMakeFiles/untitled.dir/flags.make
+CMakeFiles/untitled.dir/threadTest.c.o: ../threadTest.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eduardo/Documents/Lenguajes/C/DonCE-Kong/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/untitled.dir/threadTest.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/untitled.dir/threadTest.c.o   -c /home/eduardo/Documents/Lenguajes/C/DonCE-Kong/threadTest.c
+
+CMakeFiles/untitled.dir/threadTest.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/untitled.dir/threadTest.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/eduardo/Documents/Lenguajes/C/DonCE-Kong/threadTest.c > CMakeFiles/untitled.dir/threadTest.c.i
+
+CMakeFiles/untitled.dir/threadTest.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/untitled.dir/threadTest.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/eduardo/Documents/Lenguajes/C/DonCE-Kong/threadTest.c -o CMakeFiles/untitled.dir/threadTest.c.s
+
 # Object files for target untitled
 untitled_OBJECTS = \
 "CMakeFiles/untitled.dir/main.c.o" \
+"CMakeFiles/untitled.dir/client.c.o" \
 "CMakeFiles/untitled.dir/Sprite.c.o" \
-"CMakeFiles/untitled.dir/LinkedList.c.o"
+"CMakeFiles/untitled.dir/LinkedList.c.o" \
+"CMakeFiles/untitled.dir/threadTest.c.o"
 
 # External object files for target untitled
 untitled_EXTERNAL_OBJECTS =
 
 untitled: CMakeFiles/untitled.dir/main.c.o
+untitled: CMakeFiles/untitled.dir/client.c.o
 untitled: CMakeFiles/untitled.dir/Sprite.c.o
 untitled: CMakeFiles/untitled.dir/LinkedList.c.o
+untitled: CMakeFiles/untitled.dir/threadTest.c.o
 untitled: CMakeFiles/untitled.dir/build.make
 untitled: CMakeFiles/untitled.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/eduardo/Documents/Lenguajes/C/DonCE-Kong/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable untitled"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/eduardo/Documents/Lenguajes/C/DonCE-Kong/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable untitled"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/untitled.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

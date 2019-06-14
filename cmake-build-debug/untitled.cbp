@@ -99,7 +99,13 @@
 		<Unit filename="/home/eduardo/Documents/Lenguajes/C/DonCE-Kong/Sprite.h">
 			<Option target="untitled"/>
 		</Unit>
+		<Unit filename="/home/eduardo/Documents/Lenguajes/C/DonCE-Kong/client.c">
+			<Option target="untitled"/>
+		</Unit>
 		<Unit filename="/home/eduardo/Documents/Lenguajes/C/DonCE-Kong/main.c">
+			<Option target="untitled"/>
+		</Unit>
+		<Unit filename="/home/eduardo/Documents/Lenguajes/C/DonCE-Kong/threadTest.c">
 			<Option target="untitled"/>
 		</Unit>
 		<Unit filename="/home/eduardo/Documents/Lenguajes/C/DonCE-Kong/CMakeLists.txt">

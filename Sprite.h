@@ -52,7 +52,7 @@ struct Barrel{
 
 };
 
-void createBarrel(float x, float y, int type, struct Node **node, int spriteSize){
+void createBarrel(float x, float y,int type, struct Node **node, int spriteSize){
 
     struct Barrel barrel;
 
@@ -67,7 +67,7 @@ void createBarrel(float x, float y, int type, struct Node **node, int spriteSize
         barrel.w = 77-66;
         barrel.h = 267-258;
 
-        barrel.velX = 3.5;
+        barrel.velX = 2;
         barrel.velY = barrel.velX;
         barrel.dir = 1;
 
@@ -138,21 +138,21 @@ bool isBarrelCollidingAll(struct Barrel *barrel, struct Node *node){
 
 }
 
-void updateAllBarrels(struct Node *node, struct Node *platList){
+void updateAllBarrels(struct Node *node, struct Node *platList, int level){
     struct Barrel * target;
 
     while (node != NULL)
     {
         target = (struct Barrel *)node->data;
 
-        updateBarrel(target, platList);
+        updateBarrel(target, platList, level);
 
         node = node->next;
     }
 
 }
 
-void updateBarrel(struct Barrel *barrel, struct Node *node){
+void updateBarrel(struct Barrel *barrel, struct Node *node, int level){
 
     if(barrel->type == 1){
 
@@ -172,13 +172,13 @@ void updateBarrel(struct Barrel *barrel, struct Node *node){
                 barrel->dir = 1;
             }
 
-            barrel->x += barrel->velX*barrel->dir;
-
+            barrel->x += (barrel->velX+(barrel->velX*level)/5)*barrel->dir;
+            printf("Barrel speed: %f\n", (barrel->velX+(barrel->velX*level)/5)*barrel->dir);
 
         }
         else{
 
-            barrel->y += barrel->type;
+            barrel->y += barrel->type + (barrel->type*level)/5;
         }
     }
     else if(barrel->type == 2){
@@ -290,7 +290,6 @@ void updatePlayer(struct Sprite *player){
 
     }
 
-    printf("Vel: %f\n", player->velX);
 
 }
 
@@ -398,7 +397,6 @@ bool isSideColliding(struct Sprite * player, struct Sprite tiles){
 
         if(px+pw > lx && px < lx){
 
-            printf("colliding");
 
 
         }
@@ -460,6 +458,45 @@ bool isCollidingWithAny(struct Sprite *player, struct Node *node){
         target = (struct Sprite *)node->data;
 
         if(isColliding(player,*target)){
+
+            return true;
+
+        }
+
+        node = node->next;
+    }
+
+
+    return false;
+
+}
+
+
+bool isCollidingWithBarrel(struct Sprite * sprite, struct Barrel target){
+    if(sprite->y + sprite->h < target.y + target.h -2 &&
+       sprite->x < target.x  + target.w &&
+       sprite->x + sprite->w > target.x&&
+       sprite->y + sprite->h > target.y +2){
+
+
+        return true;
+
+    }
+    else{
+
+        return false;
+
+    }
+}
+bool isCollidingWithBarrels(struct Sprite *player, struct Node *node){
+    struct Barrel * target;
+
+
+    while (node != NULL)
+    {
+        target = (struct Barrel *)node->data;
+
+        if(isCollidingWithBarrel(player,*target)){
 
             return true;
 
@@ -631,6 +668,11 @@ void genLastLine(struct Node** node, unsigned spriteSize){
     plat.h = (218-200)*1.15;
     push(node,&plat,spriteSize);
 
+    plat = createPlatform(245*1.15,133*1.15);
+    plat.w = (357-245)*1.15;
+    plat.h = (152-133)*1.15;
+
+    push(node,&plat,spriteSize);
 
 
 }
@@ -694,7 +736,55 @@ bool allLadderCollide(struct Sprite* player, struct Node *node){
 
 }
 
+struct Sprite createHammer(int ind){
 
+    struct Sprite hammer;
+    hammer.x = hammerXCoords[ind];
+    hammer.y = hammerYCoords[ind];
+
+    hammer.h = hammerH;
+    hammer.w = hammerW;
+
+    return hammer;
+
+}
+
+void genHammers(struct Node** node, unsigned spriteSize){
+
+    struct Sprite hammer;
+
+    for (int i = 0; i < 2; ++i) {
+
+        hammer = createHammer(i);
+        push(node,&hammer,spriteSize);
+
+    }
+
+}
+
+void drawHammers(struct Node* node){
+
+    ALLEGRO_BITMAP * spritesheet = al_load_bitmap("Sprites/misc-2.png");
+
+
+    struct Sprite * target;
+
+
+    while (node != NULL)
+    {
+        target = (struct Sprite *)node->data;
+
+        al_draw_scaled_bitmap(spritesheet,
+                              hammerX,hammerY, hammerW, hammerH,
+                              target->x*1.15,target->y*1.15,hammerW*SCALE, hammerH*SCALE, 0);
+
+
+
+        node = node->next;
+    }
+
+
+}
 
 
 #endif //UNTITLED_SPRITE_H

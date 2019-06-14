@@ -1,1 +1,1 @@
-/usr/bin/cc -g   CMakeFiles/untitled.dir/main.c.o CMakeFiles/untitled.dir/Sprite.c.o CMakeFiles/untitled.dir/LinkedList.c.o  -o untitled 
+/usr/bin/cc -g   CMakeFiles/untitled.dir/main.c.o CMakeFiles/untitled.dir/client.c.o CMakeFiles/untitled.dir/Sprite.c.o CMakeFiles/untitled.dir/LinkedList.c.o CMakeFiles/untitled.dir/threadTest.c.o  -o untitled 

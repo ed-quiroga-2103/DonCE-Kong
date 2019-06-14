@@ -8,18 +8,328 @@
 #include "Sprite.c"
 #include "LinkedList.c"
 #include "Settings.h"
+#include <unistd.h>
+#include <pthread.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <sys/socket.h>
+#define MAX 80
+
 
 enum KEYS {KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_SPACE};
 
-void start();
+int BARRELCODE = 0;
+
+int clientSocket, ret;
+struct sockaddr_in serverAddr;
+char buffer[1024] = "Hola";
+char bufferR[1024];
+int msg = 0;
+bool running = true;
+int barrelCode = 0;
+ALLEGRO_THREAD      *thread_1    = NULL;
+ALLEGRO_THREAD      *thread_2    = NULL;
+
+int start(int level);
+void win();
+void gameOver();
+
+static void *Func_Thread1(ALLEGRO_THREAD *thr, void *arg);
+static void *Func_Thread2(ALLEGRO_THREAD *thr, void *arg);
+#define SA struct sockaddr
+#define PORT 8888
+
+void func(int sockfd)
+{
+    char buff[MAX] = "test\0";
+    char buffM[MAX] = "The player won the level! Try harder!\n";
+    int n;
+    for (;;) {
+        bzero(buff, sizeof(buff));
+        n = 0;
+        if(msg == 1){
+            write(sockfd, buffM, sizeof(buff));
+            msg = 0;
+        }
+        write(sockfd, buff, sizeof(buff));
+        bzero(buff, sizeof(buff));
+        read(sockfd, buff, sizeof(buff));
+        printf("From Server : %s", buff);
+
+        if((strncmp(buff, "1", 1)) == 0){
+
+            barrelCode = 1;
+        }
+        if((strncmp(buff, "21", 2)) == 0){
+
+            barrelCode = 21;
+
+        }
+        if((strncmp(buff, "22", 2)) == 0){
+
+            barrelCode = 22;
+
+        }
+        if((strncmp(buff, "23", 2)) == 0){
+
+            barrelCode = 23;
+
+        }
+
+        if ((strncmp(buff, "exit", 4)) == 0) {
+            printf("Client Exit...\n");
+            break;
+        }
+    }
+}
+
+
 
 int main() {
-    start();
 
+//-------------------------------------------------Threads--------------------------------------------------------------
+
+    int data =0;
+
+    thread_1 = al_create_thread(Func_Thread1, &data);
+    al_start_thread(thread_1);
+    thread_2 = al_create_thread(Func_Thread2, &data);
+    al_start_thread(thread_2);
+
+    printf("Done\n");
+
+    while(running){}
+/*
+    start();
+    printf("done\n");
+
+
+*/
     return 0;
 }
 
-void start(){
+
+static void *Func_Thread1(ALLEGRO_THREAD *thr, void *arg) {
+
+    int sockfd, connfd;
+    struct sockaddr_in servaddr, cli;
+
+    // socket create and varification
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockfd == -1) {
+        printf("socket creation failed...\n");
+        exit(0);
+    }
+    else
+        printf("Socket successfully created..\n");
+    bzero(&servaddr, sizeof(servaddr));
+
+    // assign IP, PORT
+    servaddr.sin_family = AF_INET;
+    servaddr.sin_addr.s_addr = inet_addr("172.20.10.9");
+    servaddr.sin_port = htons(PORT);
+
+    // connect the client socket to server socket
+    if (connect(sockfd, (SA*)&servaddr, sizeof(servaddr)) != 0) {
+        printf("connection with the server failed...\n");
+        exit(0);
+    }
+    else
+        printf("connected to the server..\n");
+
+    while (!al_get_thread_should_stop(thr)) {
+
+
+        func(sockfd);
+
+    }
+        return NULL;
+
+}
+static void *Func_Thread2(ALLEGRO_THREAD *thr, void *arg) {
+
+    while (!al_get_thread_should_stop(thr)) {
+
+        int lives = 5;
+        int level = 0;
+        while(lives != 0){
+            int code = start(level);
+            if (code == 1){
+                level +=1;
+                win();
+            }
+            else if(level == 10){
+
+                //ganar
+
+            }
+            else{
+                lives-=1;
+            }
+        }
+
+        gameOver();
+        running = false;
+        al_destroy_thread(thread_1);
+        al_destroy_thread(thread_2);
+
+    }
+        return NULL;
+
+}
+
+void gameOver(){
+
+    al_init();
+    al_init_image_addon();
+    al_init_primitives_addon();
+
+
+    ALLEGRO_BITMAP *background;
+    background = al_load_bitmap("Sprites/Main.png");
+
+    assert(background != NULL);
+
+    unsigned width = al_get_bitmap_width(background);
+    unsigned height = al_get_bitmap_height(background);
+    ALLEGRO_DISPLAY *display = al_create_display(width*1.15,height*1.15);
+
+
+
+
+    ALLEGRO_EVENT_QUEUE * queue;
+    ALLEGRO_TIMER * timer;
+
+
+    queue = al_create_event_queue();
+    timer = al_create_timer(1/FPS);
+
+
+    al_install_keyboard();
+    al_register_event_source(queue, al_get_keyboard_event_source());
+    al_register_event_source(queue, al_get_display_event_source(display));
+    al_register_event_source(queue, al_get_timer_event_source(timer));
+
+
+
+    al_set_window_title(display, "DonCE-Kong!");
+
+
+    bool running = true;
+    int count = 0;
+    al_start_timer(timer);
+
+    while(running) {
+        ALLEGRO_EVENT event;
+        al_wait_for_event(queue, &event);
+
+        if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
+
+            switch(event.keyboard.keycode) {
+
+                case ALLEGRO_KEY_ESCAPE:
+                    running = false;
+                    break;
+            }
+        }
+
+
+        if (event.type == ALLEGRO_EVENT_TIMER) {
+
+            count+=1;
+            if(count == 180){
+                running = false;
+            }
+            ALLEGRO_BITMAP * gameover = al_load_bitmap("Sprites/GameOver.png");
+            assert(gameover != NULL);
+
+            al_draw_scaled_bitmap(gameover,67,150,139-67,8,(width/2)-(139-67)/2, height/2, (139-67)*2, 8*2, 0);
+
+            al_flip_display();
+
+        }
+    }
+}
+
+void win(){
+    al_init();
+    al_init_image_addon();
+    al_init_primitives_addon();
+
+
+    ALLEGRO_BITMAP *background;
+    background = al_load_bitmap("Sprites/Main.png");
+
+    assert(background != NULL);
+
+    unsigned width = al_get_bitmap_width(background);
+    unsigned height = al_get_bitmap_height(background);
+    ALLEGRO_DISPLAY *display = al_create_display(width*1.15,height*1.15);
+
+
+
+
+    ALLEGRO_EVENT_QUEUE * queue;
+    ALLEGRO_TIMER * timer;
+
+
+    queue = al_create_event_queue();
+    timer = al_create_timer(1/FPS);
+
+
+    al_install_keyboard();
+    al_register_event_source(queue, al_get_keyboard_event_source());
+    al_register_event_source(queue, al_get_display_event_source(display));
+    al_register_event_source(queue, al_get_timer_event_source(timer));
+
+
+
+    al_set_window_title(display, "DonCE-Kong!");
+
+
+    bool running = true;
+    int count = 0;
+    al_start_timer(timer);
+
+    while(running) {
+        ALLEGRO_EVENT event;
+        al_wait_for_event(queue, &event);
+
+        if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
+
+            switch(event.keyboard.keycode) {
+
+                case ALLEGRO_KEY_ESCAPE:
+                    running = false;
+                    break;
+            }
+        }
+
+
+        if (event.type == ALLEGRO_EVENT_TIMER) {
+
+            count+=1;
+            if(count == 180){
+                al_destroy_display(display);
+                al_uninstall_keyboard();
+                al_destroy_timer(timer);
+                return;
+
+            }
+            ALLEGRO_BITMAP * gameover = al_load_bitmap("Sprites/misc-2.png");
+            assert(gameover != NULL);
+
+            al_draw_scaled_bitmap(gameover,heartX,heartY,heartW,heartH,(width/2)-heartW, height/2, heartW*3, heartH*3, 0);
+
+            al_flip_display();
+
+        }
+    }
+}
+
+int start(int level){
     printf("Initializing!\n");
 
 
@@ -48,7 +358,6 @@ void start(){
 
     bool key[5] = {false, false, false, false, false};
 
-    bool running = true;
 
     queue = al_create_event_queue();
     timer = al_create_timer(1.0/FPS);
@@ -69,6 +378,7 @@ void start(){
     struct Node *spriteList = NULL;
     struct Node *ladderList = NULL;
     struct Node *barrelList = NULL;
+    struct Node *hammerList = NULL;
     unsigned spriteSize = sizeof(struct Sprite);
     unsigned barrelSize = sizeof(struct Barrel);
 
@@ -91,6 +401,8 @@ void start(){
     genLastLine(&spriteList,spriteSize);
 
     genLadders(&ladderList, spriteSize);
+
+    genHammers(&hammerList, spriteSize);
 
     player.x= 101;
     player.y = 555;
@@ -148,6 +460,15 @@ void start(){
 
         } else {colliding = false; falling = true;};
 
+        if(isCollidingWithBarrels(&player,barrelList)){
+            al_destroy_display(display);
+            al_uninstall_keyboard();
+            al_destroy_timer(timer);
+
+            return -1;
+
+        }
+
         if(allLadderCollide(&player,ladderList)){
 
             player.climbing = true;
@@ -201,6 +522,7 @@ void start(){
                     break;
                 case ALLEGRO_KEY_ESCAPE:
                     running = false;
+
                     break;
                 case ALLEGRO_KEY_SPACE:
                     key[KEY_SPACE] = false;
@@ -216,6 +538,29 @@ void start(){
             }
         }
 
+        if(barrelCode == 1){
+
+            createBarrel(173,173,1,&barrelList,barrelSize);
+            barrelCode = 0;
+
+        }
+
+        if(barrelCode == 21){
+            createBarrel(173,173,2,&barrelList,barrelSize);
+            barrelCode = 0;
+
+        }
+
+        if(barrelCode == 22){
+            createBarrel(width/2,173,2,&barrelList,barrelSize);
+            barrelCode = 0;
+
+        }
+        if(barrelCode == 23){
+            createBarrel(width-173,173,2,&barrelList,barrelSize);
+            barrelCode = 0;
+
+        }
 
         if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
 
@@ -245,8 +590,22 @@ void start(){
         }
 
         if(player.y > height*1.15){
+            al_destroy_display(display);
+            al_uninstall_keyboard();
+            al_destroy_timer(timer);
 
-            running = false;
+            return -1;
+
+        }
+
+        if(player.y < 133 && player.x < 295){
+
+            al_destroy_display(display);
+            al_uninstall_keyboard();
+            al_destroy_timer(timer);
+            msg = 1;
+
+            return 1;
 
         }
 
@@ -328,7 +687,9 @@ void start(){
             //drawAllSprites(spriteList);
             //al_draw_bitmap(background,0,0,0);
             al_draw_scaled_bitmap(background,0,0,width,height,0,0,width*1.15,height*1.15,0);
-            updateAllBarrels(barrelList,spriteList);
+            updateAllBarrels(barrelList,spriteList,level);
+
+            drawHammers(hammerList);
 
 
             drawPlayer(&player);
@@ -341,7 +702,6 @@ void start(){
 
     }
 //------------Finalization----------------------------------------------------------------------------------------------
-    free(spriteList);
 
     al_destroy_display(display);
     al_uninstall_keyboard();
