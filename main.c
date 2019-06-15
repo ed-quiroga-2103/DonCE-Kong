@@ -39,8 +39,16 @@ void gameOver();
 static void *Func_Thread1(ALLEGRO_THREAD *thr, void *arg);
 static void *Func_Thread2(ALLEGRO_THREAD *thr, void *arg);
 #define SA struct sockaddr
-#define PORT 8888
+#define PORT 4444
 
+/*
+ *Socket function implemented from GeeksForGeeks:
+ *https://www.geeksforgeeks.org/tcp-server-client-implementation-in-c/
+ *
+ * Eduardo Quiroga modified:
+ * -Message detection was added
+ * -Message send function was removed
+ */
 void func(int sockfd)
 {
     char buff[MAX] = "test\0";
@@ -112,7 +120,7 @@ int main() {
     al_start_thread(thread_1);
     thread_2 = al_create_thread(Func_Thread2, &data);
     al_start_thread(thread_2);
-
+//----------------------------------------------------------------------------------------------------------------------
     printf("Done\n");
 
     //Loop to keep the program running
@@ -473,6 +481,7 @@ int start(int level){
         if(allHammerCollide(&player,hammerList)){
 
             player.hammer = true;
+            hammerTimer = 0;
 
         }
         //Platform collition

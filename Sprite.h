@@ -245,7 +245,6 @@ void updateBarrel(struct Barrel *barrel, struct Node *node, int level){
             }
 
             barrel->x += (barrel->velX+(barrel->velX*level)/5)*barrel->dir;
-            printf("Barrel speed: %f\n", (barrel->velX+(barrel->velX*level)/5)*barrel->dir);
 
         }
         else{

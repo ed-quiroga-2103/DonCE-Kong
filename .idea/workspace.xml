@@ -12,8 +12,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb78a7c1-3c06-4257-9f99-73ae0ba68507" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main" beforeDir="false" afterPath="$PROJECT_DIR$/Main" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Settings.h" beforeDir="false" afterPath="$PROJECT_DIR$/Settings.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sprite.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sprite.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
     </list>
@@ -94,7 +94,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="c" value="14548" />
+          <entry key="c" value="14758" />
           <entry key="h" value="13654" />
           <entry key="txt" value="113" />
         </counts>
@@ -102,8 +102,8 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CMakeLists.txt" value="8" />
-          <entry key="Doxygen file" value="2" />
-          <entry key="ObjectiveC" value="28200" />
+          <entry key="Doxygen file" value="3" />
+          <entry key="ObjectiveC" value="28409" />
           <entry key="PLAIN_TEXT" value="105" />
         </counts>
       </usages-collector>
@@ -114,12 +114,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="41" column="17" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="17" />
+            <state relative-caret-position="211">
+              <caret line="44" column="48" selection-start-line="44" selection-start-column="48" selection-end-line="44" selection-end-column="48" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
-                <element signature="e#989#1906#0" />
-                <element signature="e#2342#3252#0" />
                 <element signature="e#3253#3855#0" />
                 <element signature="e#3857#5515#0" />
                 <element signature="e#5517#7297#0" />
@@ -132,8 +130,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Settings.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="21" column="33" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
+            <state relative-caret-position="300">
+              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
             </state>
           </provider>
         </entry>
@@ -141,7 +139,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Sprite.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-360">
+            <state relative-caret-position="480">
               <caret line="32" column="5" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
               <folding>
                 <element signature="e#42#70#0" expanded="true" />
@@ -153,8 +151,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Sprite.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="246">
-              <caret line="1045" column="15" selection-start-line="1045" selection-start-column="15" selection-end-line="1045" selection-end-column="15" />
+            <state relative-caret-position="596">
+              <caret line="134" column="5" lean-forward="true" selection-start-line="134" selection-start-column="5" selection-end-line="134" selection-end-column="5" />
               <folding>
                 <element signature="e#94#122#0" expanded="true" />
                 <element signature="e#325#659#1" />
@@ -164,7 +162,6 @@
                 <element signature="e#1847#2094#0" />
                 <element signature="e#2100#2408#0" />
                 <element signature="e#2410#2676#0" />
-                <element signature="e#3030#5522#0" />
                 <element signature="e#3963#4084#0" />
                 <element signature="e#4086#4183#0" />
                 <element signature="e#4282#6575#0" />
@@ -200,11 +197,6 @@
               </folding>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Sprites/marioSheet.png">
-          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -251,8 +243,8 @@
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/client.c" />
         <option value="$PROJECT_DIR$/threadTest.c" />
-        <option value="$PROJECT_DIR$/Sprite.h" />
         <option value="$PROJECT_DIR$/Settings.h" />
+        <option value="$PROJECT_DIR$/Sprite.h" />
         <option value="$PROJECT_DIR$/main.c" />
       </list>
     </option>
@@ -355,12 +347,12 @@
       <workItem from="1559784413754" duration="1464000" />
       <workItem from="1560374876668" duration="29862000" />
       <workItem from="1560486441092" duration="14464000" />
-      <workItem from="1560532841493" duration="12312000" />
+      <workItem from="1560532841493" duration="15840000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="127725000" />
+    <option name="totallyTimeSpent" value="131253000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -373,6 +365,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1366" height="741" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.19318181" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -386,7 +379,7 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32789558" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Messages" order="8" weight="0.3284553" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49924242" visible="true" weight="0.37683523" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49924242" weight="0.37683523" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5007576" side_tool="true" weight="0.3284553" />
       <window_info anchor="bottom" id="Version Control" order="11" />
       <window_info anchor="bottom" id="CMake" order="12" weight="0.32789558" />
@@ -451,9 +444,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Sprites/marioSheet.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/Notas.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -461,20 +451,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Sprite.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-360">
-          <caret line="32" column="5" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
-          <folding>
-            <element signature="e#42#70#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/Sprites/marioSheet.png">
+      <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/Sprite.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="1045" column="15" selection-start-line="1045" selection-start-column="15" selection-end-line="1045" selection-end-column="15" />
+        <state relative-caret-position="596">
+          <caret line="134" column="5" lean-forward="true" selection-start-line="134" selection-start-column="5" selection-end-line="134" selection-end-column="5" />
           <folding>
             <element signature="e#94#122#0" expanded="true" />
             <element signature="e#325#659#1" />
@@ -484,7 +467,6 @@
             <element signature="e#1847#2094#0" />
             <element signature="e#2100#2408#0" />
             <element signature="e#2410#2676#0" />
-            <element signature="e#3030#5522#0" />
             <element signature="e#3963#4084#0" />
             <element signature="e#4086#4183#0" />
             <element signature="e#4282#6575#0" />
@@ -521,21 +503,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Sprite.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="32" column="5" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
+          <folding>
+            <element signature="e#42#70#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Settings.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="21" column="33" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
+        <state relative-caret-position="300">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="41" column="17" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="17" />
+        <state relative-caret-position="211">
+          <caret line="44" column="48" selection-start-line="44" selection-start-column="48" selection-end-line="44" selection-end-column="48" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#989#1906#0" />
-            <element signature="e#2342#3252#0" />
             <element signature="e#3253#3855#0" />
             <element signature="e#3857#5515#0" />
             <element signature="e#5517#7297#0" />
